@@ -28,7 +28,8 @@ router.get('/byFirstName', (req, res) =>
             doc => res.send(doc),
             error => res.send(500).send(error)
         );
-    }));
+    })
+);
 
 router.delete('/deleteUser', (req, res, next) => {
     paramHandler(req, res, ['id'], async () => {
@@ -45,6 +46,37 @@ router.delete('/deleteUser', (req, res, next) => {
             return;
         }
     })
+});
+
+router.delete('/deleteUserByFirstName/:fname', async (req, res, next) => {
+    try{
+        console.log(req.params);
+        const {fname} = req.params;
+        await sch.userModel.findOneAndDelete(fname);
+        res.status(204).send();
+    }catch (exception){
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUser/:fname/:newfname',async (req,res,next) => {
+    try{
+        console.log(req.params);
+        const {fname, newfname} = req.params;
+        const id = utils.toObjectId(req.query.id);
+        console.log("old values",oldUser,id);
+        await sch.userModel.findByIdAndUpdate(id,newfname).then(
+                (doc) => res.send(doc),console.log("returned ", doc)
+        )
+        // return sch.userModel.findById(id).then( 
+        //     (doc) => doc.model.fname = newfname,
+        //     console.log("new user",doc),
+            
+        // );
+        
+    } catch (exception) {
+        return next({message: exception.message});
+    }
 })
 
 module.exports = router;
