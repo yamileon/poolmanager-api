@@ -63,17 +63,9 @@ router.put('/updateUser/:fname/:newfname',async (req,res,next) => {
     try{
         console.log(req.params);
         const {fname, newfname} = req.params;
-        const id = utils.toObjectId(req.query.id);
-        console.log("old values",oldUser,id);
-        await sch.userModel.findByIdAndUpdate(id,newfname).then(
-                (doc) => res.send(doc),console.log("returned ", doc)
-        )
-        // return sch.userModel.findById(id).then( 
-        //     (doc) => doc.model.fname = newfname,
-        //     console.log("new user",doc),
-            
-        // );
-        
+        return sch.userModel.findOneAndUpdate(fname,newfname,(doc) => {
+            return res.send(doc),console.log("returned ", doc)
+        });
     } catch (exception) {
         return next({message: exception.message});
     }
