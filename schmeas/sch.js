@@ -1,8 +1,16 @@
 let mongoose = require('mongoose');
 
 exports.usersSchema = new mongoose.Schema({
-    fname: String,
-    lname: String,
+    fname: {
+        type: String,
+        required: true,
+        maxlength: 255
+    },
+    lname: {
+        type: String,
+        required: true,
+        maxlength: 255
+    },
     gamesPlayed: Number,
     wins: Number,
     losses: Number,
