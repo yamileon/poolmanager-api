@@ -1,9 +1,8 @@
-
 var config = require('./config');
 var mongoose = require('mongoose');
 var express = require('express');
 var config = require('./config');
-var UserRoutes = require('./routes/user-routes');
+var UserRoutes = require('./router/user-routes');
 var schema = require('./schemas/sch')
 var app = express();
 
