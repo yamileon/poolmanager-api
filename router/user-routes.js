@@ -21,14 +21,16 @@ router.post('/create', (req, res, next) => {
     );
 });
 
-router.get('/byFirstName', (req, res) =>
-    paramHandler(req, res, ['firstName'], () => {
-        const { firstName } = req.query;
-        return sch.userModel.find({ firstName }).then(
-            doc => res.send(doc),
-            error => res.send(500).send(error)
+router.get('/byFirstName', (req, res) =>{
+        const {fname} = req.query;        
+        return sch.userModel.find({fname}).then(
+            doc => {
+                console.log(doc)
+                res.send(doc)
+            },
+            error => res.sendStatus(400)
         );
-    }));
+    });
 
 router.delete('/deleteUser', (req, res, next) => {
     paramHandler(req, res, ['id'], async () => {
