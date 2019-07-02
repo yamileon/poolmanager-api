@@ -28,22 +28,22 @@ exports.championSchema = new mongoose.Schema({
     tourmentWinStreak: Number
 })
 
-exports.queues = mongoose.model(
+exports.queueModel = mongoose.model(
     'queue',
     this.queueSchema
 );
 
-exports.users = mongoose.model(
+exports.userModel = mongoose.model(
     'users',
     this.usersSchema
 );
 
-exports.rulesets = mongoose.model(
+exports.ruleModel = mongoose.model(
     'rulesets',
     this.rulesetSchema
 );
 
-exports.champions = mongoose.model(
+exports.championModel = mongoose.model(
     'champions',
     this.championSchema
 );

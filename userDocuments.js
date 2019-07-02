@@ -1,4 +1,4 @@
-const usr1 = new users({
+const usr1 = new userModel({
     fname: 'Sulayman',
     lname: 'Saleem',
     gamesPlayed:10,
@@ -8,7 +8,7 @@ const usr1 = new users({
     
 })
 
-const usr2 = new users({
+const usr2 = new userModel({
     fname: 'Danny',
     lname: 'Lambord',
     gamesPlayed:20,
@@ -18,7 +18,7 @@ const usr2 = new users({
     
 })
 
-const usr3 = new users({
+const usr3 = new userModel({
     fname: 'Danny',
     lname: 'Little',
     gamesPlayed:17,
@@ -27,7 +27,7 @@ const usr3 = new users({
     winstreak: 5,
     
 })
-const usr4 = new users({
+const usr4 = new userModel({
     fname: 'Ringo',
     lname: 'Star',
     gamesPlayed: 3,
@@ -36,7 +36,7 @@ const usr4 = new users({
     winstreak: 0,
     
 })
-const usr5 = new users({
+const usr5 = new userModel({
     fname: 'Dimitrios',
     lname: 'Papadeas',
     gamesPlayed: 6,
@@ -46,7 +46,7 @@ const usr5 = new users({
     
 })
 
-const usr6 = new users({
+const usr6 = new userModel({
     fname: 'Thomas',
     lname: 'Gilbert',
     gamesPlayed: 6,
@@ -56,7 +56,7 @@ const usr6 = new users({
     
 })
 
-const usr7 = new users({
+const usr7 = new userModel({
     fname: 'sdfsf',
     lname: 'dfhr',
     gamesPlayed: 6,
@@ -66,20 +66,20 @@ const usr7 = new users({
     
 })
 
-const usr8 = new users({
+const usr8 = new userModel({
     fname: 'Taefa',
     lname: 'agreag',
    
 })
 
-const usr9 = new users({
+const usr9 = new userModel({
     fname: 'sjuyln',
     lname: 'Kqwet',
 
     
 })
 
-const usr10 = new users({
+const usr10 = new userModel({
     fname: 'mnbbvv',
     lname: 'lkjhfd',   
 })
