@@ -11,14 +11,27 @@ exports.usersSchema = new mongoose.Schema({
 });
 
 exports.queueSchema = new mongoose.Schema({
-    p1name: String,
-    p2name: String,
+    counter: {
+        type: Number,
+        unique: true,
+        index: true
+    },
+    player1name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    player2name: {
+        type: String,
+        required: true,
+        unique: true
+    },
     gameRules: Number
-})
+});
 
 exports.rulesetSchema = new mongoose.Schema({
     link: String
-})
+});
 
 exports.championSchema = new mongoose.Schema({
     fname: String,
@@ -26,7 +39,7 @@ exports.championSchema = new mongoose.Schema({
     currentWinStreak: Number,
     recentTournyWinner: { fname: String, lname: String },
     tourmentWinStreak: Number
-})
+});
 
 exports.queues = mongoose.model(
     'queue',
