@@ -51,22 +51,8 @@ router.delete('/deleteUser', (req, res, next) => {
 
 router.put('/updateUser/:fname/:newUsername',async (req,res,next) => {
     try{
-        console.log("1",req.params);
         const {fname, newUsername} = req.params;
-        //const user = sch.userModel.find({fname}).select();
-        //console.log("2",user);
-        //const id = utils.toObjectId(fname);
-        //const id = {_id} = user;
-        //id = utils.toObjectId(id);
-        //const id = user;
-        updateName = `{ fname : ${newUsername} }`;
-        //console.log("3",updateName);
-
         return sch.userModel.findOneAndUpdate({ fname: fname }, { $set : { fname: newUsername}}).then((user) => {
-            console.log(user);
-            // user.fname = newUsername;
-            // console.log("fname", user.fname);
-            // ;
             return sch.userModel.findOne({fname: newUsername}).then((updatedUser) => {
                 return res.send(updatedUser),console.log("returned ", updatedUser);
             })
