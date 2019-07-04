@@ -3,7 +3,10 @@ var express = require('express');
 var config = require('./config');
 var UserRoutes = require('./router/user-routes');
 var schema = require('./schemas/sch')
+var cors = require('cors');
 var app = express();
+
+app.use(cors({origin: true}));
 
 app.use(express.json());
 
