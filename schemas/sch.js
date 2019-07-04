@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 exports.usersSchema = new mongoose.Schema({
+    username: String,
     fname: String,
     lname: String,
     gamesPlayed: {

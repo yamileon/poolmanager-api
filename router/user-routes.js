@@ -11,19 +11,25 @@ router.get('/all', (req, res) => {
     });
 });
 
-router.post('/create', (req, res, next) => {
+router.post('/create', async(req, res, next) => {
     const newUser = new sch.userModel(req.body);
-    console.log(req.body)
-    // return res.send(200)
-    return newUser.save().then(
-        doc => res.status(201).send(doc),
-        error => next(error)
-    );
+    const check = await sch.userModel.findOne({username: newUser.username});
+    if(check) {
+        res.status(409).send({});
+    }
+    else {
+        console.log(req.body)
+        // return res.send(200)
+        return newUser.save().then(
+            doc => res.status(201).send(doc),
+            error => next(error)
+        );
+    }
 });
 
-router.get('/byFirstName', (req, res) =>{
-        const {fname} = req.query;        
-        return sch.userModel.find({fname}).then(
+router.get('/byUsername', (req, res) =>{
+        const {username} = req.query;        
+        return sch.userModel.find({username}).then(
             doc => {
                 console.log(doc)
                 res.send(doc)
