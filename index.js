@@ -5,7 +5,10 @@ var config = require('./config');
 var UserRoutes = require('./router/user-routes');
 var schema = require('./schemas/sch')
 var app = express();
+var cors = require('cors');
 
+
+app.use(cors());
 app.use(express.json());
 
 app.use('/user', UserRoutes);

@@ -11,20 +11,17 @@ exports.usersSchema = new mongoose.Schema({
 });
 
 exports.queueSchema = new mongoose.Schema({
-    counter: {
+    id:{
         type: Number,
-        unique: true,
-        index: true
+        auto:true
     },
     player1name: {
         type: String,
         required: true,
-        unique: true
     },
     player2name: {
         type: String,
         required: true,
-        unique: true
     },
     gameRules: Number
 });
