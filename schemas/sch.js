@@ -1,13 +1,29 @@
 let mongoose = require('mongoose');
 
 exports.usersSchema = new mongoose.Schema({
+    username: String,
     fname: String,
     lname: String,
-    gamesPlayed: Number,
-    wins: Number,
-    losses: Number,
-    winstreak: Number,
-    rank: Number
+    gamesPlayed: {
+        type: Number,
+        default: 0
+    },
+    wins: {
+        type: Number,
+        default: 0
+    },
+    losses: {
+        type: Number,
+        default: 0
+    },
+    winstreak: {
+        type: Number,
+        default: 0
+    },
+    rank: {
+        type: Number,
+        default: 0
+    }
 });
 
 exports.queueSchema = new mongoose.Schema({

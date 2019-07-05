@@ -11,26 +11,32 @@ router.get('/all', (req, res) => {
     });
 });
 
-router.post('/create', (req, res, next) => {
+router.post('/create', async(req, res, next) => {
     const newUser = new sch.userModel(req.body);
-    console.log(req.body)
-    // return res.send(200)
-    return newUser.save().then(
-        doc => res.status(201).send(doc),
-        error => next(error)
-    );
+    const check = await sch.userModel.findOne({username: newUser.username});
+    if(check) {
+        res.status(409).send({});
+    }
+    else {
+        console.log(req.body)
+        // return res.send(200)
+        return newUser.save().then(
+            doc => res.status(201).send(doc),
+            error => next(error)
+        );
+    }
 });
 
-router.get('/byFirstName', (req, res) =>
-    paramHandler(req, res, ['firstName'], () => {
-        const { firstName } = req.query;
-        console.log(firstName);
-        return sch.userModel.find({ fname: firstName }).then(
-            doc => res.send(doc),
-            error => res.send(500).send(error)
+router.get('/byUsername', (req, res) =>{
+        const {username} = req.query;        
+        return sch.userModel.find({username}).then(
+            doc => {
+                console.log(doc)
+                res.send(doc)
+            },
+            error => res.sendStatus(400)
         );
-    })
-);
+    });
 
 router.delete('/deleteUser', (req, res, next) => {
     paramHandler(req, res, ['id'], async () => {
