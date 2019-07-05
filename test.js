@@ -19,9 +19,6 @@ app.use(express.json());
 app.get('/get', async (req, res) => {
     const docs = await sch.queueModel.find();
     res.send(docs);
-app.update('/update', async (req, res) => {
-    res.send(docs);
-    const docs = await sch.queueModel.updateOne({player1name:"Danny"}, {player1name:"Jay" ); //Value of the record wanted to be deleted
 })
 
 app.get('/get-one', async (req, res) => {
