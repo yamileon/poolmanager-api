@@ -29,17 +29,6 @@ router.post('/create', async(req, res, next) => {
 });
 
 router.get('/byUsername', (req, res) =>{
-<<<<<<< HEAD
-    const {username} = req.query;        
-    return sch.userModel.find({username}).then(
-        doc => {
-            console.log(doc)
-            res.send(doc)
-        },
-        error => res.sendStatus(400)
-    );
-});
-=======
         const {username} = req.query;        
         return sch.userModel.findOne({username}).then(
             doc => {
@@ -49,7 +38,6 @@ router.get('/byUsername', (req, res) =>{
             error => res.sendStatus(400)
         );
     });
->>>>>>> 8352131e193c34feda7b66cc713ff2e40c6263b5
 
 router.delete('/deleteUser', (req, res, next) => {
     paramHandler(req, res, ['id'], async () => {
@@ -85,13 +73,67 @@ router.put('/updateUser/:username/:newUsername',async (req,res,next) => {
 router.put('/updateUser/:username/',async (req,res,next) => {
     try{
         const {username} = req.params;
-        console.log("params ",req.params,"body ",req.body);
         const updatedValues = yeah.pickBy(req.body);
-        console.log("updated values : ", updatedValues);
         return sch.userModel.updateOne({ username: username },
             updatedValues
             ,{upsert: true}).then((user) => {
-                console.log("user: ",user);
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUserInfo/win/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        let user = await sch.userModel.findOne({ username: username}).select('wins');
+        let { wins } = user;
+        wins++;
+        return sch.userModel.updateOne({ username: username },
+            {wins: wins}
+            ,{upsert: true}).then((user) => {
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUserInfo/loss/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        let user = await sch.userModel.findOne({ username: username}).select('losses');
+        let { losses } = user;
+        losses++;
+        return sch.userModel.updateOne({ username: username },
+            {losses: losses}
+            ,{upsert: true}).then((user) => {
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUserInfo/gamesPlayed/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        let user = await sch.userModel.findOne({ username: username}).select('gamesPlayed');
+        let { gamesPlayed } = user;
+        gamesPlayed++;
+        return sch.userModel.updateOne({ username: username },
+            {gamesPlayed: gamesPlayed}
+            ,{upsert: true}).then((user) => {
                 return sch.userModel.findOne({username: username}).then((updatedUser) => {
                     return res.send(updatedUser),console.log("returned ", updatedUser);
             })
