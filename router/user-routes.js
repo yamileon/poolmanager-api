@@ -29,7 +29,7 @@ router.post('/create', async(req, res, next) => {
 
 router.get('/byUsername', (req, res) =>{
         const {username} = req.query;        
-        return sch.userModel.find({username}).then(
+        return sch.userModel.findOne({username}).then(
             doc => {
                 console.log(doc)
                 res.send(doc)
