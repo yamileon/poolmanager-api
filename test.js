@@ -3,7 +3,7 @@ let mong = require('mongoose');
 let express = require('express');
 var cors = require('cors');
 
-mong.connect('mongodb://localhost:27017/test', { useNewUrlParser: true }, (err) => {
+mong.connect('mongodb://localhost:27017/qac', { useNewUrlParser: true }, (err) => {
     if (err) { console.log(err); }
     else
         console.log('connected');
@@ -48,6 +48,14 @@ app.post('/addQueue', async (req, res, next) => {
 
 app.delete('/delete', async (req, res) => {
     const docs = await sch.queueModel.findByIdAndDelete(mong.Types.ObjectId(req.query.id));
+    res.send(docs);
+})
+
+app.put('/update', async(req, res) => {
+    console.log();
+
+    const docs = await sch.queueModel.updateOne(req.body.currentGame,req.body.newGame);
+
     res.send(docs);
 })
 
