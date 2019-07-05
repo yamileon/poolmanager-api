@@ -21,6 +21,11 @@ app.get('/get', async (req, res) => {
     res.send(docs);
 })
 
+app.get('/get-one', async (req, res) => {
+    const docs = await sch.queueModel.findById(mong.Types.ObjectId(req.query.id));
+    res.send(docs);
+})
+
 var p1name;
 
 function update(name) {
@@ -39,6 +44,11 @@ app.post('/addQueue', async (req, res, next) => {
     } catch (e) {
         next(e);
     };
+})
+
+app.delete('/delete', async (req, res) => {
+    const docs = await sch.queueModel.findByIdAndDelete(mong.Types.ObjectId(req.query.id));
+    res.send(docs);
 })
 
 app.use((err, _req, res, _next) => {
