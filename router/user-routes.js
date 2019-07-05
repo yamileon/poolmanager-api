@@ -3,6 +3,7 @@ var router = express.Router();
 var sch = require('../schemas/sch');
 var paramHandler = require('../handlers/param-handler');
 var utils = require('../utils');
+const yeah = require('lodash');
 
 
 router.get('/all', (req, res) => {
@@ -28,8 +29,9 @@ router.post('/create', async(req, res, next) => {
 });
 
 router.get('/byUsername', (req, res) =>{
+<<<<<<< HEAD
         const {username} = req.query;        
-        return sch.userModel.find({username}).then(
+        return sch.userModel.findOne({username}).then(
             doc => {
                 console.log(doc)
                 res.send(doc)
@@ -37,6 +39,17 @@ router.get('/byUsername', (req, res) =>{
             error => res.sendStatus(400)
         );
     });
+=======
+    const {username} = req.query;        
+    return sch.userModel.find({username}).then(
+        doc => {
+            console.log(doc)
+            res.send(doc)
+        },
+        error => res.sendStatus(400)
+    );
+});
+>>>>>>> af56b743a676b97e603497d82318156341e8736d
 
 router.delete('/deleteUser', (req, res, next) => {
     paramHandler(req, res, ['id'], async () => {
@@ -55,12 +68,86 @@ router.delete('/deleteUser', (req, res, next) => {
     })
 });
 
-router.put('/updateUser/:fname/:newUsername',async (req,res,next) => {
+router.put('/updateUser/:username/:newUsername',async (req,res,next) => {
     try{
-        const {fname, newUsername} = req.params;
-        return sch.userModel.findOneAndUpdate({ fname: fname }, { $set : { fname: newUsername}}).then((user) => {
-            return sch.userModel.findOne({fname: newUsername}).then((updatedUser) => {
+        const {username, newUsername} = req.params;
+        return sch.userModel.findOneAndUpdate({ username: username }, { $set : { username: newUsername}}).then((user) => {
+            return sch.userModel.findOne({username: newUsername}).then((updatedUser) => {
                 return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUser/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        const updatedValues = yeah.pickBy(req.body);
+        return sch.userModel.updateOne({ username: username },
+            updatedValues
+            ,{upsert: true}).then((user) => {
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUserInfo/win/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        let user = await sch.userModel.findOne({ username: username}).select('wins');
+        let { wins } = user;
+        wins++;
+        return sch.userModel.updateOne({ username: username },
+            {wins: wins}
+            ,{upsert: true}).then((user) => {
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUserInfo/loss/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        let user = await sch.userModel.findOne({ username: username}).select('losses');
+        let { losses } = user;
+        losses++;
+        return sch.userModel.updateOne({ username: username },
+            {losses: losses}
+            ,{upsert: true}).then((user) => {
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
+
+router.put('/updateUserInfo/gamesPlayed/:username/',async (req,res,next) => {
+    try{
+        const {username} = req.params;
+        let user = await sch.userModel.findOne({ username: username}).select('gamesPlayed');
+        let { gamesPlayed } = user;
+        gamesPlayed++;
+        return sch.userModel.updateOne({ username: username },
+            {gamesPlayed: gamesPlayed}
+            ,{upsert: true}).then((user) => {
+                return sch.userModel.findOne({username: username}).then((updatedUser) => {
+                    return res.send(updatedUser),console.log("returned ", updatedUser);
             })
             
         });
