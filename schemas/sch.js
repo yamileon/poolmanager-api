@@ -57,6 +57,23 @@ exports.championSchema = new mongoose.Schema({
     tourmentWinStreak: Number
 });
 
+exports.tournamentSchema = new mongoose.Schema({
+    tournamentName: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    players: [{
+        playerName: {
+            type: String,
+            required: true,
+            unique: true
+        },
+        playerSeed: Number
+    }],
+    gameQueue: this.queueSchema
+})
+
 exports.queueModel = mongoose.model(
     'queue',
     this.queueSchema
@@ -75,4 +92,9 @@ exports.ruleModel = mongoose.model(
 exports.championModel = mongoose.model(
     'champions',
     this.championSchema
+);
+
+exports.tournamentModel = mongoose.model(
+    'tournaments',
+    this.tournamentSchema
 );

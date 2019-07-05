@@ -53,6 +53,20 @@ router.delete('/deleteUser', (req, res, next) => {
             return;
         }
     })
-})
+});
+
+router.put('/updateUser/:fname/:newUsername',async (req,res,next) => {
+    try{
+        const {fname, newUsername} = req.params;
+        return sch.userModel.findOneAndUpdate({ fname: fname }, { $set : { fname: newUsername}}).then((user) => {
+            return sch.userModel.findOne({fname: newUsername}).then((updatedUser) => {
+                return res.send(updatedUser),console.log("returned ", updatedUser);
+            })
+            
+        });
+    } catch (exception) {
+        return next({message: exception.message});
+    }
+});
 
 module.exports = router;
