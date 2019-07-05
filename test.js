@@ -9,17 +9,14 @@ mong.connect('mongodb://localhost:27017/27017', { useNewUrlParser: true }, (err)
 });
 
 
-var myModel = mong.model(
-    'queue',
-    this.queueSchema
-);
+
 
 
 var app = express();
 app.use(express.json());
 
-app.get('/delete', async (req, res) => {
-    const docs = await myModel.deleteOne({p1name:"Danny"}); //Value of the record wanted to be deleted
+app.update('/update', async (req, res) => {
+    const docs = await sch.queueModel.updateOne({player1name:"Danny"}, {player1name:"Jay" ); //Value of the record wanted to be deleted
     res.send(docs);
 })
 
