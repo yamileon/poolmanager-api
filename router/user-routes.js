@@ -29,19 +29,8 @@ router.post('/create', async(req, res, next) => {
 });
 
 router.get('/byUsername', (req, res) =>{
-<<<<<<< HEAD
-        const {username} = req.query;        
-        return sch.userModel.findOne({username}).then(
-            doc => {
-                console.log(doc)
-                res.send(doc)
-            },
-            error => res.sendStatus(400)
-        );
-    });
-=======
     const {username} = req.query;        
-    return sch.userModel.find({username}).then(
+    return sch.userModel.findOne({username}).then(
         doc => {
             console.log(doc)
             res.send(doc)
@@ -49,7 +38,6 @@ router.get('/byUsername', (req, res) =>{
         error => res.sendStatus(400)
     );
 });
->>>>>>> af56b743a676b97e603497d82318156341e8736d
 
 router.delete('/deleteUser', (req, res, next) => {
     paramHandler(req, res, ['id'], async () => {
