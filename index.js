@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var config = require('./config');
 var UserRoutes = require('./router/user-routes');
-var schema = require('./schemas/sch')
+var sch = require('./schemas/sch.js')
 var cors = require('cors');
 var app = express();
 var cors = require('cors');
@@ -19,21 +19,7 @@ app.use((err, req, res, next) => {
     return res.status(500).send(err);
 });
 
-mongoose.connect(
-    config.app.MONGODB_URI,
-    { useNewUrlParser: true })
-    .then((res) => {
-        console.log('Connection to MongoDB established.');
-    }, (error) => {
-        console.error('Failed to connect to MongoDB. Exitting.');
-        console.error(error);
-        process.exit(1);
-    }).then(() => {
-        // If the connection is successful, set up Express to listen for incoming requests.
-        app.listen(config.app.PORT, () => {
-            console.log(`Server running on port ${config.app.PORT}`);
-        });
-    });
+
 app.get('/get', async (req, res) => {
     const docs = await sch.queueModel.find();
     res.send(docs);
@@ -86,3 +72,19 @@ app.use((err, _req, res, _next) => {
 app.listen(8081, () => {
     console.log('Listening on port 8081');
 });
+
+mongoose.connect(
+    config.app.MONGODB_URI,
+    { useNewUrlParser: true })
+    .then((res) => {
+        console.log('Connection to MongoDB established.');
+    }, (error) => {
+        console.error('Failed to connect to MongoDB. Exitting.');
+        console.error(error);
+        process.exit(1);
+    }).then(() => {
+        // If the connection is successful, set up Express to listen for incoming requests.
+        app.listen(config.app.PORT, () => {
+            console.log(`Server running on port ${config.app.PORT}`);
+        });
+    });
