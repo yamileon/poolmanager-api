@@ -26,7 +26,7 @@ app.get('/get', async (req, res) => {
 })
 
 app.get('/get-one', async (req, res) => {
-    const docs = await sch.queueModel.findById(mong.Types.ObjectId(req.query.id));
+    const docs = await sch.queueModel.findById(mongoose.Types.ObjectId(req.query.id));
     res.send(docs);
 })
 
@@ -51,7 +51,7 @@ app.post('/addQueue', async (req, res, next) => {
 })
 
 app.delete('/delete', async (req, res) => {
-    const docs = await sch.queueModel.findByIdAndDelete(mong.Types.ObjectId(req.query.id));
+    const docs = await sch.queueModel.findByIdAndDelete(mongoose.Types.ObjectId(req.query.id));
     res.send(docs);
 })
 
