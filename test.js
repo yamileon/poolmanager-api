@@ -3,7 +3,7 @@ let mong = require('mongoose');
 let express = require('express');
 var cors = require('cors');
 
-mong.connect('mongodb://localhost:27017/qac', { useNewUrlParser: true }, (err) => {
+mong.connect('mongodb://35.246.80.48:27017/qac', { useNewUrlParser: true }, (err) => {
     if (err) { console.log(err); }
     else
         console.log('connected');
