@@ -68,11 +68,6 @@ app.use((err, _req, res, _next) => {
     return res.status(500).send(err);
 });
 
-
-app.listen(8081, () => {
-    console.log('Listening on port 8081');
-});
-
 mongoose.connect(
     config.app.MONGODB_URI,
     { useNewUrlParser: true })
