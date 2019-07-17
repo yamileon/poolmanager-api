@@ -36,7 +36,7 @@ function update(name) {
     p1name = name;
 }
 
-app.post('/addQueue', async (req, res, next) => {
+app.post('api/addQueue', async (req, res, next) => {
 
 
     try {
