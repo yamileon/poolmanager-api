@@ -69,22 +69,22 @@ app.use((err, _req, res, _next) => {
 });
 
 
-app.listen(8081, () => {
-    console.log('Listening on port 8081');
-});
+// app.listen(8081, () => {
+//     console.log('Listening on port 8081');
+// });
 
-// mongoose.connect(
-//     config.app.MONGODB_URI,
-//     { useNewUrlParser: true })
-//     .then((res) => {
-//         console.log('Connection to MongoDB established.');
-//     }, (error) => {
-//         console.error('Failed to connect to MongoDB. Exitting.');
-//         console.error(error);
-//         process.exit(1);
-//     }).then(() => {
-//         // If the connection is successful, set up Express to listen for incoming requests.
-//         app.listen(config.app.PORT, () => {
-//             console.log(`Server running on port ${config.app.PORT}`);
-//         });
-//     });
+mongoose.connect(
+    config.app.MONGODB_URI,
+    { useNewUrlParser: true })
+    .then((res) => {
+        console.log('Connection to MongoDB established.');
+    }, (error) => {
+        console.error('Failed to connect to MongoDB. Exitting.');
+        console.error(error);
+        process.exit(1);
+    }).then(() => {
+        // If the connection is successful, set up Express to listen for incoming requests.
+        app.listen(config.app.PORT, () => {
+            console.log(`Server running on port ${config.app.PORT}`);
+        });
+    });

@@ -1,5 +1,5 @@
 exports.app = {
     PORT: 8080,
-    MONGODB_URI: 'mongodb://localhost:27017/qac',
+    MONGODB_URI: 'mongodb://'+process.env.MONGODB_HOST+':27017/qac',
     logErrors: true
 };
